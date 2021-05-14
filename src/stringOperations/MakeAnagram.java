@@ -50,10 +50,33 @@ public class MakeAnagram {
         return deletions;
 		}
 
+	
+	 static String superReducedString(String s) {
+		    // Write your code here
+		  
+		    int i = 1;
+
+		    while (i < s.length()) {
+		        if (s.charAt(i) == s.charAt(i-1)) {
+		            s = s.substring(0, i-1) + s.substring(i+1);
+		            s = superReducedString(s);
+		            i++;
+		        }
+		        i++;
+		        
+		    }
+		    return s;
+
+		    }
+
+	 
+	 
 	public static void main(String[] args) {
 		String a = "showman";
 		String b = "woman";
+		String t = "aaabccddd";
 		System.out.println(makeAnagram(a, b));
+		System.out.println(superReducedString(t));
 	}
 
 }

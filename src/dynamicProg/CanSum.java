@@ -2,7 +2,7 @@ package dynamicProg;
 
 import java.util.HashMap;
 
-//Can the targetSum be formed with any combination of the given numbers?
+//Can the targetSum be formed with any combination of the given numbers?  
 public class CanSum {
 
 	//brute force recursive solution
@@ -62,10 +62,30 @@ public class CanSum {
 		return table[targetSum];
 	}
 
+    static int count = 0;
+    static int findTargetSumWays(int[] nums, int S) {
+        calculate(nums, 0, 0, S);
+        return count;
+    }
+    static void calculate(int[] nums, int i, int sum, int S) {
+        if (i == nums.length) {
+            if (sum == S)
+                count++;
+        } else {
+            calculate(nums, i + 1, sum + nums[i], S);
+            calculate(nums, i + 1, sum - nums[i], S);
+        }
+    }
 
+    
+    
 	public static void main(String[] args) {
 		int targetSum = 11;
 		int[] numbers = { 2, 3, 4 };
+		
+		int[] nums = {1,1,1,1,1}; 
+		int target = 3;
+
 
 		long start = System.nanoTime();
 
@@ -73,9 +93,11 @@ public class CanSum {
 		System.out.println(canSumDynamicProgrammingMemoization(targetSum, numbers));
 		System.out.println(canSumDynamicProgrammingTabulation(targetSum, numbers));
 
-		long end = System.nanoTime();
-		long duration = end - start;
-		System.out.println("Method execution time: " + duration);
+		System.out.println(findTargetSumWays(nums, target));
+
+//		long end = System.nanoTime();
+//		long duration = end - start;
+//		System.out.println("Method execution time: " + duration);
 
 	}
 }

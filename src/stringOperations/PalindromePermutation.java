@@ -79,7 +79,6 @@ public class PalindromePermutation {
 		HashMap<Character, Integer> charCount = new HashMap<>();
 		boolean isEven = false;
 		int nrOfSingleChars = 0;
-		int[] arr = new int[26];
 
 		if (s.length() % 2 == 0) {
 		    isEven = true;
@@ -107,7 +106,6 @@ public class PalindromePermutation {
 	
 	static boolean isPalindromePermutation3(String s) {
 
-		HashMap<Character, Integer> charCount = new HashMap<>();
 		boolean isEven = false;
 		int nrOfSingleChars = 0;
 		int[] arr = new int[26];
@@ -116,9 +114,7 @@ public class PalindromePermutation {
 		if (s.length() % 2 == 0) {
 			isEven = true;
 		}
-		
-		
-		
+
 		for (int i = 0; i < s.length(); i++) {
 			if (!Character.isLetterOrDigit(s.charAt(i)))return false;
 			if (arr[s.charAt(i) - 'a'] < 0) return false;
@@ -140,13 +136,65 @@ public class PalindromePermutation {
 		return true;
 	}
 
+	
+	  static int palindromeIndex(String s) {
+		    // Write your code here
+		    HashMap<Character,Integer> map = new HashMap<>();
+		    HashMap<Character,Integer> charIndexMap = new HashMap<>();
+		    char[] arr = s.toCharArray();
+		    for (int i=0; i<arr.length; i++) {
+		        if (map.containsKey(arr[i])) {
+		            int count = map.get(arr[i]);
+		            map.put(arr[i], count+=1);
+		            charIndexMap.put(arr[i], i);
+		        }
+		        else {
+		            map.put(arr[i], 1);
+		            charIndexMap.put(arr[i], i);
+		        }
+		    }
+		   
+		    
+		    int index = 0;
+		    if (s.length() % 2 == 0) { //even at first => s is already palindrome, or remove one char that only appears once
+		        int singleCharCount = 0;
+		        for (Map.Entry<Character,Integer> entry : map.entrySet()) {
+		            if (entry.getValue() % 2 != 0) {
+		               singleCharCount++; 
+		               index=charIndexMap.get(entry.getKey());
+		            }
+		            else singleCharCount++;index=charIndexMap.get(entry.getKey());
+		        }
+		        if (singleCharCount == 2) return index;
+		    }
+		    else {  //odd at first, either singleCharCount = 1, nothing needs to be removed, or it is 0
+		        int singleCharCount = 0;
+		        for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+		            if (entry.getValue() % 2 != 0) {
+		                if (singleCharCount == 1) {
+		                    return charIndexMap.get(entry.getKey());                 
+		                }
+		                else singleCharCount++;index=charIndexMap.get(entry.getKey());
+		            }
+		            else singleCharCount++;index=charIndexMap.get(entry.getKey());
+		        }
+		        if (singleCharCount == 1) return -1;
+		    }
+		    
+		    return -1;
+
+		    }
+
 
 	public static void main(String[] args) {
 		String s = "tact coa";
 		String p = "civilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth";
+		String t = "aaab";
 //		System.out.println(isPalindromePermutation(s));
 		System.out.println(isPalindromePermutation2(s));
 		System.out.println(isPalindromePermutation3(s));
+		System.out.println(palindromeIndex(t));
+
 
 	}
 }

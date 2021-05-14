@@ -1,11 +1,15 @@
 package stringOperations;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+import org.junit.Test;
+
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class UniqueSubstring {
@@ -25,8 +29,12 @@ public class UniqueSubstring {
 		return true;
 	}
 
+
+	
+	
+	
 	static boolean isUniqueExtraDataStructureAssumingASCII(String s) {
-		int MAX_CHAR = 256; 
+		int MAX_CHAR = 256; // complete ASCI
 		if (s.length() > MAX_CHAR)
 			return false; // string must contain duplicates, if it is more than the max num of ascii
 							// characters
@@ -113,11 +121,58 @@ public class UniqueSubstring {
 		return output;
 	}
 
+	
+
+    static int minimumNumber(int n, String password) {
+    // Return the minimum number of characters to make the password strong
+        boolean uppercase = false;
+        boolean lowercase = false;
+        boolean special = false;
+        boolean digit = false;
+        
+         String specialCharactersString = "!@#$%^&*()-+";
+         int x=6;
+          int missing = 0;
+          
+            
+      
+
+            for (int i =0; i<password.length(); i++) {
+                 if(specialCharactersString.contains(Character.toString(password.charAt(i)))) {
+                    special = true;
+                }  
+                if (password.charAt(i) >= 'A' && password.charAt(i) <= 'Z') {
+                    uppercase = true;
+                }
+                if (password.charAt(i) >= 'a' && password.charAt(i) <= 'z') {
+                    lowercase = true;
+                }
+                if (password.charAt(i) >= 48 && password.charAt(i) <= 57) {
+                    digit = true;
+                }
+            }
+                    
+          
+           
+            if (special == false) missing++;
+            if (uppercase == false)missing++;
+            if (lowercase == false) missing++;
+            if (digit == false) missing++;
+            
+        if (n < x && x-n >= missing) return x-n;
+        
+        else return missing;
+        
+     
+       
+    }
+
+
 	public static void main(String[] args) {
 
 		String s = "abcdgaaadef";
 //		System.out.println(findUniqueLongestSubstringBruteForce(s));
-		System.out.println(findUniqueLongestSubstringUsingSet(s));
-
+//		System.out.println(findUniqueLongestSubstringUsingSet(s));
+		System.out.println(minimumNumber(4,"4700"));
 	}
 }

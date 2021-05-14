@@ -12,7 +12,7 @@ public class CommonChild {
 		for (int i = 0; i < compare.length(); i++) {
 			//check if one or more single char from the compare string is present in the original one
 			if (original.indexOf(compare.charAt(i))!=-1) {
-				longest=1; //one or more single char from the compare string is present in the original string
+				longest++; //one or more single char from the compare string is present in the original string
 			}
 			if (i+1<compare.length() && (original.indexOf(compare.charAt(i)) != -1 && original.indexOf(compare.charAt(i+1)) != -1)) {
 				longest = 2;
@@ -24,8 +24,8 @@ public class CommonChild {
 	}
 
 	public static void main(String[]args) {
-		String s = "AA";
-		String t = "AABB";
+		String s = "AAbb";
+		String t = "AAzz";
 		System.out.println(longestCommonChild(s,t));
 	}
 }

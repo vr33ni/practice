@@ -1,5 +1,7 @@
 package dataStructureImplementations;
 
+import java.util.LinkedList;
+
 public class MyLinkedList {
 
 	static Node head; // head of the list
@@ -150,6 +152,8 @@ public class MyLinkedList {
 		someNode.next = next.next;
 		return true;
 	}
+	
+	
 
 	//partition linked list into two lists around value x
 	static void partition(Node node, int x) {
